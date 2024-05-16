@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function useImages() {
-  const assetImages = [
+  const [assetImages, setAssetImages] = useState([
     {
       uri: "https://www.freedigitalphotos.net/images/img/homepage/87357.jpg",
     },
@@ -10,7 +10,7 @@ export default function useImages() {
     require("../assets/cinema.jpeg"),
     require("../assets/maison.jpeg"),
     require("../assets/paysage.jpeg"),
-  ];
+  ]);
   const [imgIndex, setImgIndex] = useState(0);
   const [img, setImg] = useState(assetImages[0]);
 
@@ -21,5 +21,9 @@ export default function useImages() {
     console.log(nbImage);
   };
 
-  return { img, pressedImages };
+  const addImage = (newImage) => {
+    setAssetImages([...assetImages, newImage]);
+  };
+
+  return { img, pressedImages, addImage };
 }

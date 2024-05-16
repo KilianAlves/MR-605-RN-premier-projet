@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { Image } from "expo-image";
+import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import { useState } from "react";
 import useLayout from "./Hooks/useLayout";
@@ -10,7 +11,31 @@ import useImages from "./Hooks/useImages";
 export default function App() {
   const [sizeSquare, setSizeSquare] = useState(0);
   const { currentMode, pressedModes } = useModes();
-  const { img, pressedImages } = useImages();
+  const { img, pressedImages, addImage } = useImages();
+
+  // partie Select ImagePicker
+  const pressedSelect = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      addImage(result.assets[0].uri);
+    }
+  };
+
+  // partie TakePhoto ImagePicker
+  const pressedTakePhoto = async () => {
+    let result = await ImagePicker.launchCameraAsync({});
+    if (!result.canceled) {
+      addImage(result.assets[0].uri);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -57,6 +82,8 @@ export default function App() {
         >
           <Button title="MODES" onPress={pressedModes} />
           <Button title="IMAGES" onPress={pressedImages} />
+          <Button title="SELECT IMAGE" onPress={pressedSelect} />
+          <Button title="TAKE PHOTO" onPress={pressedTakePhoto} />
         </View>
       </View>
     </View>
