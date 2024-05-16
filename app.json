@@ -4,10 +4,10 @@
     "slug": "premier-projet",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/biere.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/cinema.jpeg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
