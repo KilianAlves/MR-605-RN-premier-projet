@@ -5,10 +5,12 @@ import Constants from "expo-constants";
 import { useState } from "react";
 import useLayout from "./Hooks/useLayout";
 import useModes from "./Hooks/useModes";
+import useImages from "./Hooks/useImages";
 
 export default function App() {
   const [sizeSquare, setSizeSquare] = useState(0);
   const { currentMode, pressedModes } = useModes();
+  const { img, pressedImages } = useImages();
 
   return (
     <View style={styles.container}>
@@ -38,9 +40,7 @@ export default function App() {
             }}
           >
             <Image
-              source={{
-                uri: "https://www.freedigitalphotos.net/images/img/homepage/87357.jpg",
-              }}
+              source={img}
               contentFit={currentMode}
               style={{ width: sizeSquare, height: sizeSquare }}
             />
@@ -56,7 +56,7 @@ export default function App() {
           }}
         >
           <Button title="MODES" onPress={pressedModes} />
-          <Button title="BUTTON2" />
+          <Button title="IMAGES" onPress={pressedImages} />
         </View>
       </View>
     </View>
