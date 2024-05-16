@@ -1,12 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
+import { Image } from "expo-image";
 import Constants from "expo-constants";
 import { useState } from "react";
 import useLayout from "./Hooks/useLayout";
+import useModes from "./Hooks/useModes";
 
 export default function App() {
   const [sizeSquare, setSizeSquare] = useState(0);
-  console.log(sizeSquare);
+  const { currentMode, pressedModes } = useModes();
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" backgroundColor="gray" />
@@ -33,7 +36,16 @@ export default function App() {
               width: sizeSquare,
               height: sizeSquare,
             }}
-          />
+          >
+            <Image
+              source={{
+                uri: "https://www.freedigitalphotos.net/images/img/homepage/87357.jpg",
+              }}
+              contentFit={currentMode}
+              style={{ width: sizeSquare, height: sizeSquare }}
+            />
+          </View>
+          <Text>{currentMode}</Text>
         </View>
         <View
           style={{
@@ -43,7 +55,7 @@ export default function App() {
             margin: "1%",
           }}
         >
-          <Button title="BUTTON1" />
+          <Button title="MODES" onPress={pressedModes} />
           <Button title="BUTTON2" />
         </View>
       </View>
